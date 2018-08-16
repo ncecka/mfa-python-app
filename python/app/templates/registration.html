@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Demo App Registration!</title>
+    <meta charset="utf-8">
+    {% import "bootstrap/wtf.html" as wtf %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/vendor/bootstrap/css/style.css">
+</head>
+
+<body>
+{% block content %}
+<div class="login-page">
+     <div class="form">
+          <h3 class="mb-3">Register Form</h3>
+              <form class="login-form", method="post">
+                   {{ form.hidden_tag() }}
+                   {{ form.id(placeholder="SAASPASS ID") }}
+                   {{ form.username(placeholder="Company Name") }}
+                   {{ form.otp(placeholder="One-time password") }}
+                      {% with messages = get_flashed_messages(with_categories=true) %}
+                         {% if messages %}
+                            {% for message in messages %}
+                               {% if "Error" not in message[1]: %}
+                                  <div class="alert alert-info" style="font-size:11px;">
+                                      <strong style="font-size:11px;"> {{ message[1] }} </strong>
+                                  </div>
+                               {% endif %}
+                               {% if "Error" in message[1]: %}
+                                  <div class="alert alert-warning" style="font-size:11px;">
+                                      {{ message[1] }}
+                                  </div>
+                               {% endif %}
+                            {% endfor %}
+                         {% endif %}
+                      {% endwith %}
+                 <button type="submit" style="margin-top: 54px;">Register</button>
+                 <p class="message"><a href="/login">Already have an account?</a></p>
+              </form>
+     </div>
+</div>
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/jquery/jquery-3.2.1.slim.min.js"></script>
+    <script src="/static/vendor/popper/popper.min.js"></script>
+    <script src="/static/vendor/jquery/bootstrap.min.js"></script>
+{% endblock %}
+</body>
+</html>

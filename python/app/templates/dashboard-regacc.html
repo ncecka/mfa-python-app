@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Demo App Registration!</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% import "bootstrap/wtf.html" as wtf %}
+    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/vendor/bootstrap/css/style.css">
+    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.css.map">
+    <style type="text/css">h3{margin-bottom: 20px}.form{max-width: 480px;}</style>
+</head>
+<body>
+<div class="container mt-3">
+    <div class="row py-3" style="background: white">
+        <div class="col-3" style="border-right: 1px solid #ddd;">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link" id="v-pills-add-account-tab" href="/dashboard" role="tab" aria-controls="v-pills-add-account" aria-selected="false">Add Account</a>
+                <a class="nav-link"  id="v-pills-verify-account-tab" href="/dashboard-verify" role="tab" aria-controls="v-pills-verify-account" aria-selected="false">Verify Account</a>
+                <a class="nav-link" id="v-pills-remove-account-tab" href="/dashboard-remove" role="tab" aria-controls="v-pills-remove-account" aria-selected="false">Remove Account</a>
+                <a class="nav-link active" id="v-pills-register-account-by-admin-tab" href="/dashboard-regacc" role="tab" aria-controls="v-pills-register-account-by-admin" aria-selected="true">Register Account By Admin</a>
+                <a class="nav-link" id="v-pills-unregister-account-tab"  href="/dashboard-unregister" role="tab" aria-controls="v-pills-unregister-account" aria-selected="false">Unregister Account</a>
+            </div>
+        </div>
+        {% block content %}
+        <div class="col-9">
+            <div id="v-pills-tabContent">
+                <div id="v-pills-register-account-by-admin" role="tabpanel" aria-labelledby="v-pills-register-account-by-admin-tab">
+                    <div class="form">
+                        <h4>Register Account By Admin</h4>
+                        <form class="login-form" method="post">
+                            {{ form.hidden_tag() }}
+                               {{ form.username(placeholder="Username (Required)") }}
+                               <hr>
+                               {{ form.accountowner(placeholder="Account Owner (Optinoal)") }}
+                               <hr>
+                               is AD account (Optional) {{ form.isadaccount }}
+                                  {% with messages = get_flashed_messages(with_categories=true) %}
+                                    {% if messages %}
+                                      {% for message in messages %}
+                                         {% if "Error" not in message[1]: %}
+                                           <div class="alert alert-info">
+                                               <strong> {{ message[1] }} </strong>
+                                           </div>
+                                         {% endif %}
+                                         {% if "Error" in message[1]: %}
+                                            <div class="alert alert-warning">
+                                              {{ message[1] }}
+                                            </div>
+                                         {% endif %}
+                                      {% endfor %}
+                                    {% endif %}
+                                  {% endwith %}
+                            <button type="submit">Register Account By Admin</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+</div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+</body>
+</html>
